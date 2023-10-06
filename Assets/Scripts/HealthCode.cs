@@ -10,7 +10,7 @@ public class HealthCode : MonoBehaviour
 {
     private float iframesTimer;
     private float iframesTimerDefault = 1.5f;
-    private bool iframes = false;
+    public bool iframes = false;
     private int health = 5;
 
     private CoinCollect coinpurse;
@@ -33,8 +33,14 @@ public class HealthCode : MonoBehaviour
 
         }
     }
-
-
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Potion"))
+        {
+            ChangeHealth(3);
+            Destroy(other.gameObject);
+        }
+    }
     void OnCollisionEnter2D(Collision2D collision )
     {
         if (collision.gameObject.CompareTag("Spikes"))
@@ -47,11 +53,12 @@ public class HealthCode : MonoBehaviour
 
             if (health < 1)
             {
-                death();
+                Death();
             }
 
         }
     }
+    
     void ChangeHealth(int amount)
     {
         
@@ -60,13 +67,11 @@ public class HealthCode : MonoBehaviour
         
             
     }
-    void death()
+
+    void Death()
     {
         health = 5;
         coinpurse.gold = 0;
         SceneManager.LoadScene("Start", LoadSceneMode.Single);
     }
-   
-    
-
 }
