@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public Coin coinpurse;
+    //public Coin coinpurse;
 
     public HealthCode health;
 
@@ -23,7 +23,7 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coinText.text = coinpurse.Coins.ToString();
+       // coinText.text = coinpurse.Coins.ToString();
         healthText.text = health.health.ToString();
     }
 }
