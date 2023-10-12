@@ -11,13 +11,14 @@ public class HealthCode : MonoBehaviour
     private float iframesTimer;
     private float iframesTimerDefault = 1.5f;
     public bool iframes = false;
-    private int health = 5;
+    public HUD hud;
 
-    private CoinCollect coinpurse;
+    
 
     private void Start()
     {
-        coinpurse = FindObjectOfType<CoinCollect>();
+        hud = GameObject.FindObjectOfType<HUD>();
+        
     }
 
     private void Update()
@@ -51,7 +52,7 @@ public class HealthCode : MonoBehaviour
                 iframes = true;
             }
 
-            if (health < 1)
+            if (hud.health < 1)
             {
                 Death();
             }
@@ -62,16 +63,16 @@ public class HealthCode : MonoBehaviour
     void ChangeHealth(int amount)
     {
         
-        health+=amount;
-        Debug.Log("Health: "+health);
+        hud.health+=amount;
+        Debug.Log("Health: "+hud.health);
         
             
     }
 
     void Death()
     {
-        health = 5;
-        coinpurse.gold = 0;
+        hud.health = 5;
+        hud.gold = 0;
         SceneManager.LoadScene("Start", LoadSceneMode.Single);
     }
 }
