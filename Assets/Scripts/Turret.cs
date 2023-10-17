@@ -5,40 +5,72 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mail;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public GameObject player;
     
     public GameObject turretProjectile;
-
+    public bool isInRange;
     public float initialTime;
-
+    public Transform target;
     public float timer;
+
+    
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        
+        initialTime = 3;
         timer = initialTime;
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) ;
+        if (other.CompareTag("Player"))
         {
-            if (timer < 0) ;
+            isInRange = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInRange = false;
+        }
+    }
+
+    void Update()
+    {
+        transform.LookAt(target);
+        if (isInRange)
+        {
+            Vector3 direction = target.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = rotation;
+
+        }
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            if (isInRange)
             {
-                Vector3 target = player.transform.position;
-                GameObject projectile = Instantiate(turretProjectile, transform.position, Quaternion.identity);
-                projectile.transform.Translate(target);
-                timer = initialTime;
+                fire();
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer -= Time.deltaTime;
-    }
+    void fire()
+        {
+            
+            GameObject projectile = Instantiate(turretProjectile, transform.position, Quaternion.identity);
+            Debug.Log("fire");
+
+            timer=initialTime;
+        }
+    
 }
