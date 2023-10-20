@@ -5,13 +5,14 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net.Mail;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    
+    public Transform firePoint;
     public GameObject turretProjectile;
     public bool isInRange;
     public float initialTime;
@@ -43,14 +44,6 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(target);
-        if (isInRange)
-        {
-            Vector3 direction = target.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = rotation;
-
-        }
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -67,7 +60,8 @@ public class Turret : MonoBehaviour
     void fire()
         {
             
-            GameObject projectile = Instantiate(turretProjectile, transform.position, Quaternion.identity);
+            Instantiate(turretProjectile, firePoint.position, firePoint.rotation);
+
             Debug.Log("fire");
 
             timer=initialTime;

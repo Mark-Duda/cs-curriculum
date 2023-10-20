@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 
 public class HUD : MonoBehaviour
-{ 
+{
+    public int initialhealth;
     public int health;
     public int gold;
 

@@ -41,6 +41,15 @@ public class HealthCode : MonoBehaviour
             ChangeHealth(3);
             Destroy(other.gameObject);
         }
+
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            if (!iframes)
+            {
+                ChangeHealth(-1);
+            }
+            Destroy(other.gameObject);
+        }
     }
     void OnCollisionEnter2D(Collision2D collision )
     {
@@ -52,11 +61,7 @@ public class HealthCode : MonoBehaviour
                 iframes = true;
             }
 
-            if (hud.health < 1)
-            {
-                Death();
-            }
-
+            
         }
     }
     
@@ -65,13 +70,17 @@ public class HealthCode : MonoBehaviour
         
         hud.health+=amount;
         Debug.Log("Health: "+hud.health);
-        
+        if (hud.health < 1)
+        {
+            Death();
+        }
+
             
     }
 
     void Death()
     {
-        hud.health = 5;
+        hud.health = hud.initialhealth;
         hud.gold = 0;
         SceneManager.LoadScene("Start", LoadSceneMode.Single);
     }
