@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public bool overworld;
     private float Walkingspeed;
-    private float Xdirection;
+    public float Xdirection;
     private float Xvector;
-    private float Ydirection;
+    public float Ydirection;
     private float Yvector;
     // Start is called before the first frame update
     void Start()
