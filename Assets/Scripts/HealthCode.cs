@@ -60,9 +60,17 @@ public class HealthCode : MonoBehaviour
                 ChangeHealth(-1);
                 iframes = true;
             }
-
-            
         }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (!iframes)
+            {
+                ChangeHealth(-1);
+                iframes = true;
+            }
+        }
+
     }
     
     void ChangeHealth(int amount)

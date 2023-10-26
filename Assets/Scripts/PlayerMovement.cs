@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -10,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     private float Xvector;
     public float Ydirection;
     private float Yvector;
+    public GameObject bulletPrefab; 
+    public float bulletSpeed = 10f;
+
+    private GameObject playerprojectile;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
             Xvector = Xdirection * Walkingspeed * Time.deltaTime;
             transform.position = transform.position + new Vector3(Xvector, 0, 0);
         }
-        
         
     }
 }

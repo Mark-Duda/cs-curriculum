@@ -4,22 +4,41 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    public Transform firePoint;
-    public GameObject turretProjectile;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+
+        initialTime = 3;
+        timer = initialTime;
     }
 
-    // Update is called once per frame
+    public float timer;
+    public Transform firePoint;
+    public GameObject playerProjectile;
+    public float initialTime;
+
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (timer > 0)
         {
-            Debug.Log("Yay");
-            Instantiate(turretProjectile, firePoint.position, firePoint.rotation);
-            
+            timer -= Time.deltaTime;
+            if (Input.GetKeyDown("space"))
+            {
+                fire();
+            }
         }
+
     }
+
+    void fire()
+        {
+
+            Instantiate(playerProjectile, firePoint.position, firePoint.rotation);
+
+            Debug.Log("fire");
+
+            timer = initialTime;
+
+        }
+    
 }
+    
