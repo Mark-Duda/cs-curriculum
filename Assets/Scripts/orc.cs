@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class orc : MonoBehaviour
 {
-  
-    
+
+    private CircleCollider2D collider;
     public bool isInRange;
     public Transform orctarget;
     public Transform iposition;
@@ -22,6 +22,8 @@ public class orc : MonoBehaviour
     {
         iframesTimer = iframesTimerDefault;
         OrcHealth = 5;
+        collider = gameObject.GetComponent<CircleCollider2D>();
+        collider.radius = 5;
 
     }
     void OnTriggerStay2D(Collider2D other)
@@ -35,6 +37,7 @@ public class orc : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            collider.radius = collider.radius - 1.3f;
             isInRange = false;
         }
     }
@@ -66,6 +69,12 @@ public class orc : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Player"))
+        {
+            collider.radius = collider.radius + 1.3f;
+            isInRange = true;
+        }
+
         if (other.gameObject.CompareTag("PlayerProjectile"))
         {
             if (!iframes)

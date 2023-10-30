@@ -36,6 +36,12 @@ public class HealthCode : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Ipotion"))
+        {
+            iframesTimer = 10.0f;
+            iframes = true;
+            Destroy(other.gameObject);
+        }
         if (other.gameObject.CompareTag("Potion"))
         {
             ChangeHealth(3);
