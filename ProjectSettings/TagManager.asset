@@ -12,6 +12,7 @@ TagManager:
   - Projectile
   - wall
   - PlayerProjectile
+  - Ipotion
   layers:
   - Default
   - TransparentFX

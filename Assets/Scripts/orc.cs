@@ -16,7 +16,7 @@ public class orc : MonoBehaviour
     private bool iframes = false;
     private int OrcHealth;
 
-    
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -26,6 +26,7 @@ public class orc : MonoBehaviour
         collider.radius = 5;
 
     }
+
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -33,6 +34,7 @@ public class orc : MonoBehaviour
             isInRange = true;
         }
     }
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -43,6 +45,7 @@ public class orc : MonoBehaviour
     }
 
     public float orcSpeed;
+
     private void Update()
     {
         if (isInRange)
@@ -75,50 +78,52 @@ public class orc : MonoBehaviour
             isInRange = true;
         }
 
-        if (other.gameObject.CompareTag("PlayerProjectile"))
-        {
-            if (!iframes)
-            {
-                iframes = true;
-            }
-
-
-            if (OrcHealth < 1)
-            {
-                Destroy(gameObject);
-            }
-
-            Destroy(other.gameObject);
-        }
+         
 
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("PlayerProjectile"))
         {
             if (!iframes)
             {
-                ChangeOrcHealth(-1);
                 iframes = true;
+                ChangeOrcHealth(-1);
+
             }
 
             if (OrcHealth < 1)
             {
                 Destroy(gameObject);
             }
-
-
+            Destroy(collision.gameObject);
         }
 
+        if (collision.gameObject.CompareTag("Player"))
+            {
+                if (!iframes)
+                {
+                    ChangeOrcHealth(-1);
+                    iframes = true;
+                }
 
-        void ChangeOrcHealth(int amount)
-        {
-            OrcHealth += amount;
-            Debug.Log("OrcHealth: " + OrcHealth);
+                if (OrcHealth < 1)
+                {
+                    Destroy(gameObject);
+                }
+
+
+            }
+
+
+            void ChangeOrcHealth(int amount)
+            {
+                OrcHealth += amount;
+                Debug.Log("OrcHealth: " + OrcHealth);
+
+            }
 
         }
-
     }
-}
+
